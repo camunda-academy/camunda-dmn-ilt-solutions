@@ -1,0 +1,138 @@
+{
+  "$schema": "https://camunda.com/json-schema/cpt-test-cases/8.10/schema.json",
+  "processId": "Exercise4Process",
+  "testCases": [
+    {
+      "name": "known-self-employed-check",
+      "description": "Known customer, self-employed: background check",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "knownCustomer": true,
+            "loanAmount": 1000,
+            "employment": "self-employed"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "result": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "unknown-customer-check",
+      "description": "Unknown customer: background check",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "knownCustomer": false,
+            "loanAmount": 1000,
+            "employment": "employed"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "result": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "known-employed-high-amount-check",
+      "description": "Known, employed, loan above 10.000: background check",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "knownCustomer": true,
+            "loanAmount": 15000,
+            "employment": "employed"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "result": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "known-employed-low-amount-no-check",
+      "description": "Known, employed, loan up to 10.000: no background check",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "knownCustomer": true,
+            "loanAmount": 10000,
+            "employment": "employed"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise4Process"
+          },
+          "variables": {
+            "result": false
+          }
+        }
+      ]
+    }
+  ]
+}

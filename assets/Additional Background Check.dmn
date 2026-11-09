@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="backgroundCheckDefinitions" name="Additional Background Check" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <inputData id="InputData_knownCustomer" name="Known Customer" />
+  <inputData id="InputData_employment" name="Employment" />
+  <inputData id="InputData_loanAmount" name="Loan Amount" />
+  <decision id="additionalBackgroundCheck" name="Additional Background Check">
+    <informationRequirement id="additionalBackgroundCheck_req0"><requiredInput href="#InputData_knownCustomer" /></informationRequirement>
+    <informationRequirement id="additionalBackgroundCheck_req1"><requiredInput href="#InputData_employment" /></informationRequirement>
+    <informationRequirement id="additionalBackgroundCheck_req2"><requiredInput href="#InputData_loanAmount" /></informationRequirement>
+    <decisionTable id="additionalBackgroundCheck_table">
+      <input id="additionalBackgroundCheck_in0" label="Known Customer">
+        <inputExpression id="additionalBackgroundCheck_ie0" typeRef="boolean"><text>knownCustomer</text></inputExpression>
+      </input>
+      <input id="additionalBackgroundCheck_in1" label="Employment">
+        <inputExpression id="additionalBackgroundCheck_ie1" typeRef="string"><text>employment</text></inputExpression>
+      </input>
+      <input id="additionalBackgroundCheck_in2" label="Loan Amount">
+        <inputExpression id="additionalBackgroundCheck_ie2" typeRef="number"><text>loanAmount</text></inputExpression>
+      </input>
+      <output id="additionalBackgroundCheck_out" label="Background check needed" name="backgroundCheck" typeRef="boolean" />
+      <rule id="additionalBackgroundCheck_r1"><description>Unknown customer</description><inputEntry id="additionalBackgroundCheck_r1i0"><text>false</text></inputEntry><inputEntry id="additionalBackgroundCheck_r1i1"><text></text></inputEntry><inputEntry id="additionalBackgroundCheck_r1i2"><text></text></inputEntry><outputEntry id="additionalBackgroundCheck_r1o"><text>true</text></outputEntry></rule>
+      <rule id="additionalBackgroundCheck_r2"><description>Unemployed or self-employed</description><inputEntry id="additionalBackgroundCheck_r2i0"><text>true</text></inputEntry><inputEntry id="additionalBackgroundCheck_r2i1"><text>"unemployed","self-employed"</text></inputEntry><inputEntry id="additionalBackgroundCheck_r2i2"><text></text></inputEntry><outputEntry id="additionalBackgroundCheck_r2o"><text>true</text></outputEntry></rule>
+      <rule id="additionalBackgroundCheck_r3"><description>Loan amount above 10.000</description><inputEntry id="additionalBackgroundCheck_r3i0"><text>true</text></inputEntry><inputEntry id="additionalBackgroundCheck_r3i1"><text>not("unemployed","self-employed")</text></inputEntry><inputEntry id="additionalBackgroundCheck_r3i2"><text>&gt;10000</text></inputEntry><outputEntry id="additionalBackgroundCheck_r3o"><text>true</text></outputEntry></rule>
+      <rule id="additionalBackgroundCheck_r4"><inputEntry id="additionalBackgroundCheck_r4i0"><text>true</text></inputEntry><inputEntry id="additionalBackgroundCheck_r4i1"><text>not("unemployed","self-employed")</text></inputEntry><inputEntry id="additionalBackgroundCheck_r4i2"><text>&lt;=10000</text></inputEntry><outputEntry id="additionalBackgroundCheck_r4o"><text>false</text></outputEntry></rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1">
+      <dmndi:DMNShape id="InputData_knownCustomer_di" dmnElementRef="InputData_knownCustomer"><dc:Bounds height="45" width="125" x="100" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_employment_di" dmnElementRef="InputData_employment"><dc:Bounds height="45" width="125" x="277" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_loanAmount_di" dmnElementRef="InputData_loanAmount"><dc:Bounds height="45" width="125" x="454" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="additionalBackgroundCheck_di" dmnElementRef="additionalBackgroundCheck"><dc:Bounds height="80" width="180" x="250" y="80" /></dmndi:DMNShape>
+      <dmndi:DMNEdge id="additionalBackgroundCheck_req0_di" dmnElementRef="additionalBackgroundCheck_req0"><di:waypoint x="162" y="257" /><di:waypoint x="295" y="160" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="additionalBackgroundCheck_req1_di" dmnElementRef="additionalBackgroundCheck_req1"><di:waypoint x="339" y="257" /><di:waypoint x="340" y="160" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="additionalBackgroundCheck_req2_di" dmnElementRef="additionalBackgroundCheck_req2"><di:waypoint x="516" y="257" /><di:waypoint x="385" y="160" /></dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

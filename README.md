@@ -58,15 +58,10 @@ git checkout exercise-NN
 
 ---
 
-## This branch: exercise 3
+## This branch: exercise 4
 
-Instructions: [Exercise 3: Implement Affordability Decision](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-3/)
+Instructions: [Exercise 4: Extract BPMN logic into DMN](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-4/)
 
-- `Car Loan Granting.dmn`: *Affordability* is now the decision `affordability` (output `affordability`, hit policy **Unique**). It depends on the literal expression `debt2RemainingIncomeRatio`:
-
-  ```
-  installmentRate / (borrowersIncome - expenses) * 100
-  ```
-
-  with the input data *Borrowers Income*, *Expenses* and *Installment Rate*. The ratio is below 50: `"affordable"`; from 50 to below 75: `"marginal"`; 75 or more: `"unaffordable"`.
-- The test scenarios use the inputs of the exercise (`borrowersIncome` 1200, `expenses` 800, `installmentRate` 100, 200 and 300).
+- `Additional Background Check.dmn`: decision `additionalBackgroundCheck` with the inputs `knownCustomer` (boolean), `employment` (string) and `loanAmount` (number) and the boolean output `backgroundCheck`, hit policy **Unique**. A background check is needed for an unknown customer, for an unemployed or self-employed customer, or for a loan above 10.000.
+- `Exercise4Process.bpmn`: test process `Exercise4Process`. The business rule task calls `additionalBackgroundCheck` and stores the output in `result`.
+- `CompleteCarLoanProcess.bpmn` (optional part): the whole process with both decisions. Its gateway *Car Loan granted?* checks `carLoanGranted = "Granted"`, because the decision returns `"Granted"` or `"Rejected"`.

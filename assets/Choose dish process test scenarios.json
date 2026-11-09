@@ -1,0 +1,102 @@
+{
+  "$schema": "https://camunda.com/json-schema/cpt-test-cases/8.10/schema.json",
+  "processId": "chooseDishProcess",
+  "testCases": [
+    {
+      "name": "spring-not-vegetarian",
+      "description": "Demo 0 example",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "variables": {
+            "season": "spring",
+            "vegetarian": false
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "variables": {
+            "result": "Spring rolls"
+          }
+        }
+      ]
+    },
+    {
+      "name": "winter-vegetarian",
+      "description": "Winter, vegetarian",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "variables": {
+            "season": "winter",
+            "vegetarian": true
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "variables": {
+            "result": "Vegetable soup"
+          }
+        }
+      ]
+    },
+    {
+      "name": "summer-any",
+      "description": "Summer, any option",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "variables": {
+            "season": "summer",
+            "vegetarian": true
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "chooseDishProcess"
+          },
+          "variables": {
+            "result": "Salad"
+          }
+        }
+      ]
+    }
+  ]
+}

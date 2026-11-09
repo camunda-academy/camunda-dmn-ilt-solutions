@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="dishDefinitions" name="Dish" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <inputData id="InputData_season" name="Season" />
+  <inputData id="InputData_vegetarian" name="Vegetarian Option" />
+  <decision id="dishDecision" name="Dish">
+    <informationRequirement id="dishDecision_req0"><requiredInput href="#InputData_season" /></informationRequirement>
+    <informationRequirement id="dishDecision_req1"><requiredInput href="#InputData_vegetarian" /></informationRequirement>
+    <decisionTable id="dishDecision_table">
+      <input id="dishDecision_in0" label="Season">
+        <inputExpression id="dishDecision_ie0" typeRef="string"><text>season</text></inputExpression>
+        <inputValues id="dishDecision_iv0"><text>"spring","summer","autumn","winter"</text></inputValues>
+      </input>
+      <input id="dishDecision_in1" label="Vegetarian Option">
+        <inputExpression id="dishDecision_ie1" typeRef="boolean"><text>vegetarian</text></inputExpression>
+      </input>
+      <output id="dishDecision_out" label="Dish" name="dish" typeRef="string" />
+      <rule id="dishDecision_r1"><inputEntry id="dishDecision_r1i0"><text>"winter"</text></inputEntry><inputEntry id="dishDecision_r1i1"><text>false</text></inputEntry><outputEntry id="dishDecision_r1o"><text>"Roasted Duck"</text></outputEntry></rule>
+      <rule id="dishDecision_r2"><inputEntry id="dishDecision_r2i0"><text>"winter"</text></inputEntry><inputEntry id="dishDecision_r2i1"><text>true</text></inputEntry><outputEntry id="dishDecision_r2o"><text>"Vegetable soup"</text></outputEntry></rule>
+      <rule id="dishDecision_r3"><inputEntry id="dishDecision_r3i0"><text>"spring"</text></inputEntry><inputEntry id="dishDecision_r3i1"><text>false</text></inputEntry><outputEntry id="dishDecision_r3o"><text>"Spring rolls"</text></outputEntry></rule>
+      <rule id="dishDecision_r4"><inputEntry id="dishDecision_r4i0"><text>"spring"</text></inputEntry><inputEntry id="dishDecision_r4i1"><text>true</text></inputEntry><outputEntry id="dishDecision_r4o"><text>"Asparagus risotto"</text></outputEntry></rule>
+      <rule id="dishDecision_r5"><inputEntry id="dishDecision_r5i0"><text>"summer"</text></inputEntry><inputEntry id="dishDecision_r5i1"><text></text></inputEntry><outputEntry id="dishDecision_r5o"><text>"Salad"</text></outputEntry></rule>
+      <rule id="dishDecision_r6"><inputEntry id="dishDecision_r6i0"><text>"autumn"</text></inputEntry><inputEntry id="dishDecision_r6i1"><text></text></inputEntry><outputEntry id="dishDecision_r6o"><text>"Pumpkin soup"</text></outputEntry></rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1">
+      <dmndi:DMNShape id="InputData_season_di" dmnElementRef="InputData_season"><dc:Bounds height="45" width="125" x="157" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_vegetarian_di" dmnElementRef="InputData_vegetarian"><dc:Bounds height="45" width="125" x="397" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="dishDecision_di" dmnElementRef="dishDecision"><dc:Bounds height="80" width="180" x="250" y="80" /></dmndi:DMNShape>
+      <dmndi:DMNEdge id="dishDecision_req0_di" dmnElementRef="dishDecision_req0"><di:waypoint x="219" y="257" /><di:waypoint x="310" y="160" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="dishDecision_req1_di" dmnElementRef="dishDecision_req1"><di:waypoint x="459" y="257" /><di:waypoint x="370" y="160" /></dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

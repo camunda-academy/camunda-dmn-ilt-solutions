@@ -55,3 +55,12 @@ git checkout exercise-NN
 2. Open the process, select the business rule task, open the **Test** tab in the **Details** panel, enter the input and click **Run test**. The test deploys the process together with the linked decision.
 3. To run all test cases of a process at once, upload its `test scenarios.json` file too, and open the **Test** mode of the process. The file is linked to the process by its `processId`.
 
+
+---
+
+## This branch: exercise 0
+
+Instructions: [Exercise 0: Decide upon Dish](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-0/) and [Demo 0: Execute your diagram](https://camunda-academy.github.io/camunda-dmn-ilt/en/demo-0/)
+
+- `Dish.dmn`: decision `dishDecision` with the inputs `season` (string) and `vegetarian` (boolean), the output `dish`, hit policy **Unique**. The rules are an example: you can add your own. *Season* has the predefined values `"spring","summer","autumn","winter"` (optional part).
+- `Choose dish process.bpmn`: process `chooseDishProcess` of demo 0. The business rule task *Choose dish* calls `dishDecision` and stores the output in `result`.

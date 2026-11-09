@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="carLoanDefinitions" name="Car Loan Granting" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <inputData id="InputData_creditScore" name="Credit Score" />
+  <inputData id="InputData_affordability" name="Affordability" />
+  <decision id="carLoanGranting" name="Car Loan Granting">
+    <informationRequirement id="carLoanGranting_req0"><requiredInput href="#InputData_creditScore" /></informationRequirement>
+    <informationRequirement id="carLoanGranting_req1"><requiredInput href="#InputData_affordability" /></informationRequirement>
+    <decisionTable id="carLoanGranting_table" hitPolicy="FIRST">
+      <input id="carLoanGranting_in0" label="Credit Score">
+        <inputExpression id="carLoanGranting_ie0" typeRef="number"><text>creditScore</text></inputExpression>
+      </input>
+      <input id="carLoanGranting_in1" label="Affordability">
+        <inputExpression id="carLoanGranting_ie1" typeRef="string"><text>affordability</text></inputExpression>
+      </input>
+      <output id="carLoanGranting_out" label="Loan decision" name="loanDecision" typeRef="string" />
+      <rule id="carLoanGranting_r1"><description>Credit score too low</description><inputEntry id="carLoanGranting_r1i0"><text>&lt;80</text></inputEntry><inputEntry id="carLoanGranting_r1i1"><text></text></inputEntry><outputEntry id="carLoanGranting_r1o"><text>"Rejected"</text></outputEntry></rule>
+      <rule id="carLoanGranting_r2"><description>Not affordable</description><inputEntry id="carLoanGranting_r2i0"><text></text></inputEntry><inputEntry id="carLoanGranting_r2i1"><text>"unaffordable"</text></inputEntry><outputEntry id="carLoanGranting_r2o"><text>"Rejected"</text></outputEntry></rule>
+      <rule id="carLoanGranting_r3"><inputEntry id="carLoanGranting_r3i0"><text>&gt;=95</text></inputEntry><inputEntry id="carLoanGranting_r3i1"><text>"affordable","marginal"</text></inputEntry><outputEntry id="carLoanGranting_r3o"><text>"Granted"</text></outputEntry></rule>
+      <rule id="carLoanGranting_r4"><inputEntry id="carLoanGranting_r4i0"><text>[80..94.9]</text></inputEntry><inputEntry id="carLoanGranting_r4i1"><text>"affordable"</text></inputEntry><outputEntry id="carLoanGranting_r4o"><text>"Granted"</text></outputEntry></rule>
+      <rule id="carLoanGranting_r5"><inputEntry id="carLoanGranting_r5i0"><text>[80..94.9]</text></inputEntry><inputEntry id="carLoanGranting_r5i1"><text>"marginal"</text></inputEntry><outputEntry id="carLoanGranting_r5o"><text>"Rejected"</text></outputEntry></rule>
+      <rule id="carLoanGranting_r6"><description>Optional: invalid affordability value</description><inputEntry id="carLoanGranting_r6i0"><text></text></inputEntry><inputEntry id="carLoanGranting_r6i1"><text>not("affordable","marginal","unaffordable")</text></inputEntry><outputEntry id="carLoanGranting_r6o"><text>"Rejected"</text></outputEntry></rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_1">
+      <dmndi:DMNShape id="InputData_creditScore_di" dmnElementRef="InputData_creditScore"><dc:Bounds height="45" width="125" x="157" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_affordability_di" dmnElementRef="InputData_affordability"><dc:Bounds height="45" width="125" x="397" y="257" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="carLoanGranting_di" dmnElementRef="carLoanGranting"><dc:Bounds height="80" width="180" x="250" y="80" /></dmndi:DMNShape>
+      <dmndi:DMNEdge id="carLoanGranting_req0_di" dmnElementRef="carLoanGranting_req0"><di:waypoint x="219" y="257" /><di:waypoint x="310" y="160" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="carLoanGranting_req1_di" dmnElementRef="carLoanGranting_req1"><di:waypoint x="459" y="257" /><di:waypoint x="370" y="160" /></dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

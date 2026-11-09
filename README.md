@@ -58,9 +58,12 @@ git checkout exercise-NN
 
 ---
 
-## This branch: exercise 0
+## This branch: exercise 1
 
-Instructions: [Exercise 0: Decide upon Dish](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-0/) and [Demo 0: Execute your diagram](https://camunda-academy.github.io/camunda-dmn-ilt/en/demo-0/)
+Instructions: [Exercise 1: Car Loan Granting](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-1/)
 
-- `Dish.dmn`: decision `dishDecision` with the inputs `season` (string) and `vegetarian` (boolean), the output `dish`, hit policy **Unique**. The rules are an example: you can add your own. *Season* has the predefined values `"spring","summer","autumn","winter"` (optional part).
-- `Choose dish process.bpmn`: process `chooseDishProcess` of demo 0. The business rule task *Choose dish* calls `dishDecision` and stores the output in `result`.
+- `Car Loan Granting.dmn`: decision `carLoanGranting` with the inputs `creditScore` (number) and `affordability` (string) and the output `loanDecision` (`"Granted"` or `"Rejected"`).
+  - Hit policy **First**: the two reject rules (credit score below 80, affordability `unaffordable`) overlap, so **Unique** is not possible with these rules.
+  - The ranges follow the exercise (`[80..94.9]`). A credit score between 94.9 and 95, for example 94.95, matches no rule. Use `[80..95[` to close that gap.
+  - The last rule is the optional part: any other affordability value is rejected (`not("affordable","marginal","unaffordable")`).
+- `Exercise1-2-3Process.bpmn`: test process `Exercise1-2-3Process`, reused in exercises 2 and 3. The business rule task *Grant* calls `carLoanGranting` and stores the output in `result`.

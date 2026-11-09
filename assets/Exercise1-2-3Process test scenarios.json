@@ -1,0 +1,166 @@
+{
+  "$schema": "https://camunda.com/json-schema/cpt-test-cases/8.10/schema.json",
+  "processId": "Exercise1-2-3Process",
+  "testCases": [
+    {
+      "name": "score-94.9-affordable-granted",
+      "description": "Credit score 94.9, affordable: granted",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 94.9,
+            "affordability": "affordable"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Granted"
+          }
+        }
+      ]
+    },
+    {
+      "name": "score-80-marginal-rejected",
+      "description": "Credit score 80, marginal: rejected",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 80,
+            "affordability": "marginal"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Rejected"
+          }
+        }
+      ]
+    },
+    {
+      "name": "score-75-affordable-rejected",
+      "description": "Credit score below 80: rejected",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 75,
+            "affordability": "affordable"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Rejected"
+          }
+        }
+      ]
+    },
+    {
+      "name": "score-96-marginal-granted",
+      "description": "Credit score 95 or more, marginal: granted",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 96,
+            "affordability": "marginal"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Granted"
+          }
+        }
+      ]
+    },
+    {
+      "name": "optional-invalid-affordability-rejected",
+      "description": "Optional rule: an unknown affordability value is rejected",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 96,
+            "affordability": "SomethingElse"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Rejected"
+          }
+        }
+      ]
+    }
+  ]
+}

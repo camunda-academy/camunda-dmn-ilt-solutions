@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <bpmn:process id="Exercise1-2-3Process" name="Exercise1-2-3Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Loan needed">
+      <bpmn:outgoing>Flow_0fb8ehk</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0fb8ehk" sourceRef="StartEvent_1" targetRef="GrantTask" />
+    <bpmn:endEvent id="Event_1r64fcz" name="Decision taken">
+      <bpmn:incoming>Flow_0kptni6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0kptni6" sourceRef="GrantTask" targetRef="Event_1r64fcz" />
+    <bpmn:businessRuleTask id="GrantTask" name="Grant">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="carLoanGranting" resultVariable="result" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0fb8ehk</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kptni6</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Exercise2Process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="150" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="136" y="165" width="65" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1r64fcz_di" bpmnElement="Event_1r64fcz">
+        <dc:Bounds x="442" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="424" y="165" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0x80a9o_di" bpmnElement="GrantTask">
+        <dc:Bounds x="260" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0fb8ehk_di" bpmnElement="Flow_0fb8ehk">
+        <di:waypoint x="186" y="140" />
+        <di:waypoint x="260" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kptni6_di" bpmnElement="Flow_0kptni6">
+        <di:waypoint x="360" y="140" />
+        <di:waypoint x="442" y="140" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

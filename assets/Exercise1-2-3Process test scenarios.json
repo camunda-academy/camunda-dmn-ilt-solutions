@@ -131,6 +131,38 @@
       ]
     },
     {
+      "name": "score-82-affordable-granted",
+      "description": "Risk level medium, affordable: granted",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 82,
+            "affordability": "affordable"
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Granted"
+          }
+        }
+      ]
+    },
+    {
       "name": "optional-invalid-affordability-rejected",
       "description": "Optional rule: an unknown affordability value is rejected",
       "instructions": [

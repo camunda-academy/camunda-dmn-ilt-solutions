@@ -58,8 +58,15 @@ git checkout exercise-NN
 
 ---
 
-## This branch: exercise 2
+## This branch: exercise 3
 
-Instructions: [Exercise 2: Categorize Credit Score as Risk Level](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-2/)
+Instructions: [Exercise 3: Implement Affordability Decision](https://camunda-academy.github.io/camunda-dmn-ilt/en/exercise-3/)
 
-- `Car Loan Granting.dmn`: the DRD now has the decision `riskLevel` (output `riskLevel`: `"high"` below 80, `"medium"` from 80 to below 95, `"low"` from 95, hit policy **Unique**). `carLoanGranting` uses the risk level instead of the credit score. Its input expression `riskLevel` refers to the required decision by its ID.
+- `Car Loan Granting.dmn`: *Affordability* is now the decision `affordability` (output `affordability`, hit policy **Unique**). It depends on the literal expression `debt2RemainingIncomeRatio`:
+
+  ```
+  installmentRate / (borrowersIncome - expenses) * 100
+  ```
+
+  with the input data *Borrowers Income*, *Expenses* and *Installment Rate*. The ratio is below 50: `"affordable"`; from 50 to below 75: `"marginal"`; 75 or more: `"unaffordable"`.
+- The test scenarios use the inputs of the exercise (`borrowersIncome` 1200, `expenses` 800, `installmentRate` 100, 200 and 300).

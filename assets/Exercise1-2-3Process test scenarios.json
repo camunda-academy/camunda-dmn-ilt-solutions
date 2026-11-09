@@ -3,136 +3,8 @@
   "processId": "Exercise1-2-3Process",
   "testCases": [
     {
-      "name": "score-94.9-affordable-granted",
-      "description": "Credit score 94.9, affordable: granted",
-      "instructions": [
-        {
-          "type": "CREATE_PROCESS_INSTANCE",
-          "processDefinitionSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "creditScore": 94.9,
-            "affordability": "affordable"
-          }
-        },
-        {
-          "type": "ASSERT_PROCESS_INSTANCE",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "state": "IS_COMPLETED"
-        },
-        {
-          "type": "ASSERT_VARIABLES",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "result": "Granted"
-          }
-        }
-      ]
-    },
-    {
-      "name": "score-80-marginal-rejected",
-      "description": "Credit score 80, marginal: rejected",
-      "instructions": [
-        {
-          "type": "CREATE_PROCESS_INSTANCE",
-          "processDefinitionSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "creditScore": 80,
-            "affordability": "marginal"
-          }
-        },
-        {
-          "type": "ASSERT_PROCESS_INSTANCE",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "state": "IS_COMPLETED"
-        },
-        {
-          "type": "ASSERT_VARIABLES",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "result": "Rejected"
-          }
-        }
-      ]
-    },
-    {
-      "name": "score-75-affordable-rejected",
-      "description": "Credit score below 80: rejected",
-      "instructions": [
-        {
-          "type": "CREATE_PROCESS_INSTANCE",
-          "processDefinitionSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "creditScore": 75,
-            "affordability": "affordable"
-          }
-        },
-        {
-          "type": "ASSERT_PROCESS_INSTANCE",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "state": "IS_COMPLETED"
-        },
-        {
-          "type": "ASSERT_VARIABLES",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "result": "Rejected"
-          }
-        }
-      ]
-    },
-    {
-      "name": "score-96-marginal-granted",
-      "description": "Credit score 95 or more, marginal: granted",
-      "instructions": [
-        {
-          "type": "CREATE_PROCESS_INSTANCE",
-          "processDefinitionSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "creditScore": 96,
-            "affordability": "marginal"
-          }
-        },
-        {
-          "type": "ASSERT_PROCESS_INSTANCE",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "state": "IS_COMPLETED"
-        },
-        {
-          "type": "ASSERT_VARIABLES",
-          "processInstanceSelector": {
-            "processDefinitionId": "Exercise1-2-3Process"
-          },
-          "variables": {
-            "result": "Granted"
-          }
-        }
-      ]
-    },
-    {
-      "name": "score-82-affordable-granted",
-      "description": "Risk level medium, affordable: granted",
+      "name": "installment-100-affordable-granted",
+      "description": "Ratio 25 (affordable), risk medium: granted",
       "instructions": [
         {
           "type": "CREATE_PROCESS_INSTANCE",
@@ -141,7 +13,9 @@
           },
           "variables": {
             "creditScore": 82,
-            "affordability": "affordable"
+            "borrowersIncome": 1200,
+            "expenses": 800,
+            "installmentRate": 100
           }
         },
         {
@@ -163,8 +37,8 @@
       ]
     },
     {
-      "name": "optional-invalid-affordability-rejected",
-      "description": "Optional rule: an unknown affordability value is rejected",
+      "name": "installment-200-marginal-rejected",
+      "description": "Ratio 50 (marginal), risk medium: rejected",
       "instructions": [
         {
           "type": "CREATE_PROCESS_INSTANCE",
@@ -172,8 +46,10 @@
             "processDefinitionId": "Exercise1-2-3Process"
           },
           "variables": {
-            "creditScore": 96,
-            "affordability": "SomethingElse"
+            "creditScore": 82,
+            "borrowersIncome": 1200,
+            "expenses": 800,
+            "installmentRate": 200
           }
         },
         {
@@ -190,6 +66,74 @@
           },
           "variables": {
             "result": "Rejected"
+          }
+        }
+      ]
+    },
+    {
+      "name": "installment-300-unaffordable-rejected",
+      "description": "Ratio 75 (unaffordable): rejected",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 82,
+            "borrowersIncome": 1200,
+            "expenses": 800,
+            "installmentRate": 300
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Rejected"
+          }
+        }
+      ]
+    },
+    {
+      "name": "score-96-installment-200-granted",
+      "description": "Risk low, marginal: granted",
+      "instructions": [
+        {
+          "type": "CREATE_PROCESS_INSTANCE",
+          "processDefinitionSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "creditScore": 96,
+            "borrowersIncome": 1200,
+            "expenses": 800,
+            "installmentRate": 200
+          }
+        },
+        {
+          "type": "ASSERT_PROCESS_INSTANCE",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "state": "IS_COMPLETED"
+        },
+        {
+          "type": "ASSERT_VARIABLES",
+          "processInstanceSelector": {
+            "processDefinitionId": "Exercise1-2-3Process"
+          },
+          "variables": {
+            "result": "Granted"
           }
         }
       ]

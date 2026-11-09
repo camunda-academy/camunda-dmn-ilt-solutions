@@ -13,10 +13,31 @@
       <rule id="riskLevel_r3"><inputEntry id="riskLevel_r3i0"><text>&gt;=95</text></inputEntry><outputEntry id="riskLevel_r3o"><text>"low"</text></outputEntry></rule>
     </decisionTable>
   </decision>
-  <inputData id="InputData_affordability" name="Affordability" />
+  <inputData id="InputData_borrowersIncome" name="Borrowers Income" />
+  <inputData id="InputData_expenses" name="Expenses" />
+  <inputData id="InputData_installmentRate" name="Installment Rate" />
+  <decision id="debt2RemainingIncomeRatio" name="Debt to Remaining Income Ratio">
+    <variable id="debt2RemainingIncomeRatio_var" name="debt2RemainingIncomeRatio" typeRef="number" />
+    <informationRequirement id="debt2RemainingIncomeRatio_req0"><requiredInput href="#InputData_borrowersIncome" /></informationRequirement>
+    <informationRequirement id="debt2RemainingIncomeRatio_req1"><requiredInput href="#InputData_expenses" /></informationRequirement>
+    <informationRequirement id="debt2RemainingIncomeRatio_req2"><requiredInput href="#InputData_installmentRate" /></informationRequirement>
+    <literalExpression id="debt2RemainingIncomeRatio_expr"><text>installmentRate / (borrowersIncome - expenses) * 100</text></literalExpression>
+  </decision>
+  <decision id="affordability" name="Affordability">
+    <informationRequirement id="affordability_req0"><requiredDecision href="#debt2RemainingIncomeRatio" /></informationRequirement>
+    <decisionTable id="affordability_table">
+      <input id="affordability_in0" label="Debt to Remaining Income Ratio">
+        <inputExpression id="affordability_ie0" typeRef="number"><text>debt2RemainingIncomeRatio</text></inputExpression>
+      </input>
+      <output id="affordability_out" label="Affordability" name="affordability" typeRef="string" />
+      <rule id="affordability_r1"><inputEntry id="affordability_r1i0"><text>&lt;50</text></inputEntry><outputEntry id="affordability_r1o"><text>"affordable"</text></outputEntry></rule>
+      <rule id="affordability_r2"><inputEntry id="affordability_r2i0"><text>[50..75[</text></inputEntry><outputEntry id="affordability_r2o"><text>"marginal"</text></outputEntry></rule>
+      <rule id="affordability_r3"><inputEntry id="affordability_r3i0"><text>&gt;=75</text></inputEntry><outputEntry id="affordability_r3o"><text>"unaffordable"</text></outputEntry></rule>
+    </decisionTable>
+  </decision>
   <decision id="carLoanGranting" name="Car Loan Granting">
     <informationRequirement id="carLoanGranting_req0"><requiredDecision href="#riskLevel" /></informationRequirement>
-    <informationRequirement id="carLoanGranting_req1"><requiredInput href="#InputData_affordability" /></informationRequirement>
+    <informationRequirement id="carLoanGranting_req1"><requiredDecision href="#affordability" /></informationRequirement>
     <decisionTable id="carLoanGranting_table" hitPolicy="FIRST">
       <input id="carLoanGranting_in0" label="Risk Level">
         <inputExpression id="carLoanGranting_ie0" typeRef="string"><text>riskLevel</text></inputExpression>
@@ -37,11 +58,19 @@
     <dmndi:DMNDiagram id="DMNDiagram_1">
       <dmndi:DMNShape id="InputData_creditScore_di" dmnElementRef="InputData_creditScore"><dc:Bounds height="45" width="125" x="157" y="457" /></dmndi:DMNShape>
       <dmndi:DMNShape id="riskLevel_di" dmnElementRef="riskLevel"><dc:Bounds height="80" width="180" x="130" y="260" /></dmndi:DMNShape>
-      <dmndi:DMNShape id="InputData_affordability_di" dmnElementRef="InputData_affordability"><dc:Bounds height="45" width="125" x="417" y="277" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_borrowersIncome_di" dmnElementRef="InputData_borrowersIncome"><dc:Bounds height="45" width="125" x="300" y="620" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_expenses_di" dmnElementRef="InputData_expenses"><dc:Bounds height="45" width="125" x="460" y="620" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="InputData_installmentRate_di" dmnElementRef="InputData_installmentRate"><dc:Bounds height="45" width="125" x="620" y="620" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="debt2RemainingIncomeRatio_di" dmnElementRef="debt2RemainingIncomeRatio"><dc:Bounds height="80" width="180" x="460" y="440" /></dmndi:DMNShape>
+      <dmndi:DMNShape id="affordability_di" dmnElementRef="affordability"><dc:Bounds height="80" width="180" x="460" y="260" /></dmndi:DMNShape>
       <dmndi:DMNShape id="carLoanGranting_di" dmnElementRef="carLoanGranting"><dc:Bounds height="80" width="180" x="290" y="80" /></dmndi:DMNShape>
       <dmndi:DMNEdge id="riskLevel_req0_di" dmnElementRef="riskLevel_req0"><di:waypoint x="219" y="457" /><di:waypoint x="220" y="340" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="debt2RemainingIncomeRatio_req0_di" dmnElementRef="debt2RemainingIncomeRatio_req0"><di:waypoint x="362" y="620" /><di:waypoint x="505" y="520" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="debt2RemainingIncomeRatio_req1_di" dmnElementRef="debt2RemainingIncomeRatio_req1"><di:waypoint x="522" y="620" /><di:waypoint x="550" y="520" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="debt2RemainingIncomeRatio_req2_di" dmnElementRef="debt2RemainingIncomeRatio_req2"><di:waypoint x="682" y="620" /><di:waypoint x="595" y="520" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="affordability_req0_di" dmnElementRef="affordability_req0"><di:waypoint x="550" y="440" /><di:waypoint x="550" y="340" /></dmndi:DMNEdge>
       <dmndi:DMNEdge id="carLoanGranting_req0_di" dmnElementRef="carLoanGranting_req0"><di:waypoint x="220" y="260" /><di:waypoint x="350" y="160" /></dmndi:DMNEdge>
-      <dmndi:DMNEdge id="carLoanGranting_req1_di" dmnElementRef="carLoanGranting_req1"><di:waypoint x="479" y="277" /><di:waypoint x="410" y="160" /></dmndi:DMNEdge>
+      <dmndi:DMNEdge id="carLoanGranting_req1_di" dmnElementRef="carLoanGranting_req1"><di:waypoint x="550" y="260" /><di:waypoint x="410" y="160" /></dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
 </definitions>
